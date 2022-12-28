@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { getPosts, getPostBySearch } from "../../actions/postAction";
-
+import Pagination from "../Pagination";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 import useStyles from "./styles";
@@ -71,6 +71,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
+            <Paper className = {classes.pagination} elevation = {6}><Pagination/></Paper>
           </Grid>
         </Grid>
       </Container>
