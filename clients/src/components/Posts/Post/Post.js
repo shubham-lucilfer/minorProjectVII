@@ -14,7 +14,6 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyle();
   let tags = post.tags
-  console.log(tags)
   const user = JSON.parse(localStorage.getItem('profile'))
   const Likes = () => {
     if (post.likes.length > 0) {

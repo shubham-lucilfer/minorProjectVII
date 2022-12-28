@@ -10,9 +10,9 @@ import { useEffect } from 'react';
 const Form = ({ currentId, setCurrentId }) => {
     const classes = useStyle();
     const dispatch = useDispatch();
-    const post = useSelector((state) => currentId ? state.postReducer.find((p) => p._id === currentId) : null);
+    const post = useSelector((state) => state.postReducer);
     
-    const [postData, setPostData] = useState({
+    const [postData, setPostData] = useState({ 
         title: '',
         message: '',
         tags: '',
