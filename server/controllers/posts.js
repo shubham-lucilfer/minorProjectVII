@@ -29,7 +29,11 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
   
-    const { title, message, selectedFile, creator, tags } = req.body;
+    const { title, message, selectedFile, creator, tags, name } = req.body;
+  
+    if(!title || !message ||!selectedFile ||!creator ||!tags) {
+       return
+    }
     const newPost = new PostMessage({ title, message, selectedFile, creator, tags })
 
     try {
