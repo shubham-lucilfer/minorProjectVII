@@ -30,7 +30,7 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
   
     const { title, message, selectedFile, creator, tags } = req.body;
-    const newPost = new PostMessage({ title, message, selectedFile, creator: creator, tags })
+    const newPost = new PostMessage({ title, message, selectedFile, creator, tags })
 
     try {
         await newPost.save();
@@ -66,21 +66,28 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
     const { id } = req.params;
 
+    if(!req.userId)
+        return res.json({message:"Unauthenticated"})
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     
     const post = await PostMessage.findById(id);
-
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+    const index = post.likes.findIndex((id) => id === String(req.userId))
+    if(index === -1){
+            post.likes.push(req.userId);
+    }else{
+        post.likes = post.likes.filter(id => id !== String(req.userId))
+    }
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
     
     res.json(updatedPost);
 }
 
-export const getPostBySearch = async(req, res) => {
-    const { searchQuery, tags } = req.query;
+export const getPostsBySearch = async(req, res) => {
+    const { searchQuery } = req.query;
 
     try{
         const title = new RegExp(searchQuery, 'i');
-        const posts = await PostMessage.find({$or : [{title}, {tags:{$in : tags.split((','))}}]});
+        const posts = await PostMessage.find({title});
         res.json({data: posts})
     }catch(error){
         console.log(error);

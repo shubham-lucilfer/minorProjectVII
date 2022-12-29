@@ -58,7 +58,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if(user?.result?._id == undefined){
+    if(user?.result?._id === undefined){
         setPostData(postData.creator = user.user.uid)
     }else{
         setPostData(postData.creator = user.result._id)

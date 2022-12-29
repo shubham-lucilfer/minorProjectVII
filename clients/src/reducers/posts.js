@@ -9,7 +9,7 @@ export default (state = [], action) => {
         case FETCH_ALL:
             return action.payload;
         case  FETCH_BY_SEARCH:
-            return {...state, posts : action.payload};   
+            return action.payload
         case CREATE:
             return [...state, action.payload];
         case DELETE:
