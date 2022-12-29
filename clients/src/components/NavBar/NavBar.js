@@ -15,7 +15,8 @@ const NavBar = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" })
-    history.push('/')
+    // window.location.reload();
+    history.push('/posts')
     setUser(null)
   }
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));

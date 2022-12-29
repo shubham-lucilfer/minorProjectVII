@@ -2,12 +2,11 @@ import React from 'react'
 import useStyle from './Style'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core"
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from "@material-ui/icons/Delete"
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import moment from 'moment'
 import { useDispatch } from 'react-redux';
-import { deletePost, updateLike } from '../../../actions/postAction';
+import { deletePost, likePost } from '../../../actions/posts';
 
 
 const Post = ({ post, setCurrentId }) => {
@@ -15,17 +14,19 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyle();
   let tags = post.tags
   const user = JSON.parse(localStorage.getItem('profile'))
-  const Likes = () => {
-    if (post.likes.length > 0) {
-      return post.likes.find((like) => like === (user?.result?._id) || (user?.user?.uid))
-        ? (
-          <><ThumbUpAltIcon fontSize='small' />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</>
-        ) : (
-          <><ThumbUpAltIcon fontSize='small' />&nbsp;{post.likes.length}{post.likes.length === 1}</>
-        )
-    }
-    return <><ThumbUpAltOutlined fontSize='small' /></>
-  }
+
+  
+  // const Likes = () => {
+  //   if (post.likes.length > 0) {
+  //     return post.likes.find((like) => like === (user?.result?._id) || (user?.user?.uid))
+  //       ? (
+  //         <><ThumbUpAltIcon fontSize='small' />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</>
+  //       ) : (
+  //         <><ThumbUpAltIcon fontSize='small' />&nbsp;{post.likes.length}{post.likes.length === 1}</>
+  //       )
+  //   }
+  //   return <><ThumbUpAltOutlined fontSize='small' /></>
+  // }
 
 
 
@@ -57,8 +58,9 @@ const Post = ({ post, setCurrentId }) => {
         <Typography variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size='small' color='primary' onClick={() => dispatch(updateLike(post._id))} disabled={!user}>
-          <Likes />
+        <Button size='small' color='primary' onClick={() => dispatch(likePost(post._id))} disabled={!user}>
+          <ThumbUpAltIcon fontSize='small' />
+         {post.likeCount}
         </Button>
         {
           (user?.result?._id === post?.creator || user?.user?.uid === post?.creator) &&
