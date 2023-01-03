@@ -20,6 +20,7 @@ const Form = ({ currentId, setCurrentId }) => {
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
   const [postData, setPostData] = useState({
+    madeBy:"",
     title: "",
     message: "",
     creator:"",
@@ -73,7 +74,9 @@ const Form = ({ currentId, setCurrentId }) => {
   const clear = () => {
     setCurrentId(null);
     setPostData({
+      madeBy:"",
       title: "",
+      creator:"",
       message: "",
       tags: "",
       selectedFile: "",
@@ -91,6 +94,16 @@ const Form = ({ currentId, setCurrentId }) => {
         <Typography varient="h6">
           {currentId ? "Editing" : "Creating"} a Memory
         </Typography>
+        <TextField
+          name="made by"
+          variant="outlined"
+          label="Created by"
+          fullWidth
+          value={postData.madeBy}
+          onChange={(e) =>
+            setPostData({ ...postData, madeBy: e.target.value })
+          }
+        ></TextField>
         <TextField
           name="title"
           variant="outlined"

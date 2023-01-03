@@ -51,4 +51,8 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  madeBy:{
+    padding: '0 16px',
+    fontWeight: 'bold'
+  }
 });

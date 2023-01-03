@@ -29,12 +29,12 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
   
-    const { title, message, selectedFile, creator, tags, name } = req.body;
+    const { title, message, selectedFile, creator, tags, madeBy } = req.body;
   
-    if(!title || !message ||!selectedFile ||!creator ||!tags) {
+    if(!title || !message ||!selectedFile ||!creator ||!tags || !madeBy) {
        return
     }
-    const newPost = new PostMessage({ title, message, selectedFile, creator, tags })
+    const newPost = new PostMessage({ madeBy ,title, message, selectedFile, creator, tags })
 
     try {
         await newPost.save();

@@ -58,7 +58,8 @@ const Post = ({ post, setCurrentId }) => {
           `#${tag} `  
         ))}</Typography>
       </div>
-      <Typography className={classes.title} variant='h5' >{post.title}</Typography>
+      <Typography className={classes.madeBy} variant='h4' >{post.madeBy}</Typography>
+      <Typography className={classes.title} variant='h6' >{post.title}</Typography>
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
       </CardContent>
